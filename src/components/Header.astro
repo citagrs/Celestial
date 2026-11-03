@@ -1,0 +1,67 @@
+---
+import { site } from '../config/site';
+import { waLink } from '../lib/whatsapp';
+import Logo from './Logo.astro';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+const links = [
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#como-te-acompanamos', label: 'Cómo te acompañamos' },
+  { href: '/#preguntas', label: 'Preguntas' },
+];
+---
+<header class="site-header">
+  <div class="container-x flex h-16 items-center justify-between gap-4">
+    <a href="/#inicio" class="flex items-center gap-2.5" aria-label={`${site.brand.name}, ir al inicio`}>
+      <Logo size={38} beat />
+      <span class="leading-none">
+        <span class="block font-display text-lg font-extrabold tracking-wide text-deep">{site.brand.name}</span>
+        <span class="hidden text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-muted sm:block">{site.brand.descriptor}</span>
+      </span>
+    </a>
+    <nav aria-label="Principal" class="hidden md:block">
+      <ul class="flex gap-7 text-[0.95rem] font-semibold">
+        {links.map((l) => <li><a class="nav-link" href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <a
+      href={waLink()}
+      target="_blank"
+      rel="noopener"
+      data-wa="header"
+      class="btn btn-primary !min-h-10 !px-4 !py-2 text-sm"
+    >
+      <WhatsAppIcon size={18} />
+      <span>Escríbenos</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgb(255 255 255 / 0.92);
+    border-bottom: 1px solid rgb(var(--c-deep-rgb) / 0.06);
+  }
+  .nav-link {
+    position: relative;
+    color: var(--c-deep);
+    padding-block: 0.25rem;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--c-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .nav-link:hover::after { transform: scaleX(1); }
+</style>

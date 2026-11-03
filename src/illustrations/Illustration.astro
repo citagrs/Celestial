@@ -1,0 +1,29 @@
+---
+import type { IllustrationId } from '../config/types';
+import PhysioScene from './PhysioScene.astro';
+import NurseScene from './NurseScene.astro';
+import MaternalScene from './MaternalScene.astro';
+import Logo from '../components/Logo.astro';
+
+interface Props {
+  id: IllustrationId;
+  label: string;
+  /** Recolorea la ilustración sin tocar el SVG. */
+  colors?: Partial<Record<'primary' | 'deep' | 'accent' | 'soft' | 'skin' | 'skin-2' | 'hair' | 'hair-2', string>>;
+  class?: string;
+}
+const { id, label, colors = {}, class: className } = Astro.props;
+const style = Object.entries(colors)
+  .map(([k, v]) => `--ill-${k}:${v}`)
+  .join(';') || undefined;
+
+const scenes = { physio: PhysioScene, nurse: NurseScene, maternal: MaternalScene } as const;
+const Scene = id === 'generic' ? null : scenes[id];
+---
+{Scene ? (
+  <Scene label={label} class={className} style={style} />
+) : (
+  <div class:list={['grid aspect-[4/3] place-items-center rounded-3xl bg-soft', className]} role="img" aria-label={label}>
+    <Logo size={120} beat />
+  </div>
+)}

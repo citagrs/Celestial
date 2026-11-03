@@ -1,0 +1,182 @@
+@import 'tailwindcss';
+
+/* Los colores vienen de site.ts (ver src/lib/theme.ts). Tailwind solo los referencia. */
+@theme inline {
+  --color-primary: var(--c-primary);
+  --color-primary-ink: var(--c-primary-ink);
+  --color-primary-tint: var(--c-primary-tint);
+  --color-deep: var(--c-deep);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-accent-tint: var(--c-accent-tint);
+  --color-soft: var(--c-soft);
+  --color-muted: var(--c-muted);
+  --font-display: 'Nunito', 'Nunito Fallback', ui-rounded, system-ui, sans-serif;
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Fuentes de respaldo con métricas ajustadas: evitan saltos (CLS) al cargar las fuentes reales. */
+@font-face {
+  font-family: 'Nunito Fallback';
+  src: local('Arial');
+  size-adjust: 101%;
+  ascent-override: 99%;
+  descent-override: 34.6%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90.5%;
+  descent-override: 22.5%;
+  line-gap-override: 0%;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--c-white);
+    color: var(--c-deep);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    line-height: 1.15;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  p { text-wrap: pretty; }
+  :focus-visible {
+    outline: 3px solid var(--c-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  ::selection { background: var(--c-primary-tint); }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) { .container-x { padding-inline: 1.5rem; } }
+
+  .section { padding-block: 4.5rem; position: relative; }
+  @media (min-width: 768px) { .section { padding-block: 6.5rem; } }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-accent-ink);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 0.55rem;
+    height: 0.55rem;
+    background: var(--c-accent);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  }
+  .h2 {
+    font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+    font-weight: 800;
+    color: var(--c-deep);
+  }
+  .lead { font-size: 1.0625rem; color: var(--c-muted); }
+  @media (min-width: 768px) { .lead { font-size: 1.125rem; } }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s, background-color 0.25s;
+    will-change: transform;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0) scale(0.98); }
+  .btn-primary {
+    background: var(--c-primary-ink);
+    color: #fff;
+    box-shadow: 0 10px 24px -10px rgb(var(--c-primary-rgb) / 0.75);
+  }
+  .btn-primary:hover { box-shadow: 0 16px 30px -12px rgb(var(--c-primary-rgb) / 0.85); }
+  .btn-ghost {
+    background: rgb(255 255 255 / 0.85);
+    color: var(--c-deep);
+    box-shadow: inset 0 0 0 2px rgb(var(--c-deep-rgb) / 0.14);
+  }
+  .btn-ghost:hover { box-shadow: inset 0 0 0 2px rgb(var(--c-primary-rgb) / 0.6); }
+  .btn-light { background: #fff; color: var(--c-deep); box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.35); }
+
+  .card {
+    background: #fff;
+    border-radius: 1.75rem;
+    box-shadow: 0 1px 0 rgb(var(--c-deep-rgb) / 0.04), 0 20px 50px -30px rgb(var(--c-deep-rgb) / 0.35);
+  }
+
+  .sr-only-focusable:not(:focus) {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+}
+
+/* ===== Animación de aparición al hacer scroll (solo si hay JS y se permite movimiento) ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  .js [data-reveal]:not(.is-visible) { opacity: 0; transform: translate3d(0, 28px, 0); }
+  .js [data-reveal='scale']:not(.is-visible) { transform: scale(0.94); }
+}
+
+/* Las animaciones decorativas se pausan cuando su bloque no está en pantalla. */
+.js [data-animate]:not(.is-playing),
+.js [data-animate]:not(.is-playing) * { animation-play-state: paused !important; }
+
+/* Movimiento reducido: versión estática y elegante. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Halo que sigue al cursor (creado por scripts/cursor.ts, solo escritorio) */
+.cursor-halo {
+  position: fixed;
+  left: -11rem;
+  top: -11rem;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(circle, rgb(var(--c-primary-rgb) / 0.10), rgb(var(--c-accent-rgb) / 0.05) 40%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.cursor-halo.is-on { opacity: 1; }

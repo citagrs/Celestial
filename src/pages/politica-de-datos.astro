@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+/**
+ * PLANTILLA de Política de Tratamiento de Datos Personales (Ley 1581 de 2012,
+ * Decreto 1377 de 2013, compilado en el Decreto 1074 de 2015).
+ * Debe revisarla un asesor jurídico. Cuando esté completa, cambia
+ * `legal.privacyPolicyCompleted` a true en site.ts para que los buscadores la indexen.
+ */
+const { legal, brand, whatsapp } = site;
+const c = legal.company;
+---
+<Base title="Política de tratamiento de datos personales" noindex={!legal.privacyPolicyCompleted}>
+  <Header />
+  <main id="contenido" class="section">
+    <article class="policy container-x max-w-3xl">
+      {!legal.privacyPolicyCompleted && (
+        <p class="mb-8 rounded-2xl border-2 border-dashed border-accent bg-accent-tint/40 p-4 text-sm text-deep">
+          <strong>Plantilla en construcción.</strong> Los campos entre corchetes deben completarse y el texto debe ser
+          revisado por un asesor jurídico antes de publicar el sitio.
+        </p>
+      )}
+      <p class="eyebrow">Documento legal</p>
+      <h1 class="h2 mt-3">Política de tratamiento de datos personales</h1>
+      <p class="lead mt-4">
+        En {brand.name} cuidamos tu información con el mismo respeto con el que cuidamos a las personas. Esta política explica
+        cómo recolectamos, usamos, guardamos y protegemos tus datos personales.
+      </p>
+
+      <h2>1. Responsable del tratamiento</h2>
+      <ul>
+        <li><strong>Razón social:</strong> {c.legalName}</li>
+        <li><strong>Nombre comercial:</strong> {brand.fullName}</li>
+        <li><strong>NIT:</strong> {c.nit}</li>
+        <li><strong>Domicilio y dirección:</strong> {c.address}</li>
+        <li><strong>Correo electrónico:</strong> {c.email}</li>
+        <li><strong>Teléfono / WhatsApp:</strong> {c.phone}</li>
+        <li><strong>Representante legal:</strong> {c.legalRepresentative}</li>
+      </ul>
+
+      <h2>2. Marco legal</h2>
+      <p>
+        Esta política se rige por el artículo 15 de la Constitución Política de Colombia, la Ley Estatutaria 1581 de 2012, el
+        Decreto 1377 de 2013 (compilado en el Decreto Único Reglamentario 1074 de 2015) y demás normas que las modifiquen o
+        complementen. [VERIFICAR CON ASESOR JURÍDICO LA NORMATIVA VIGENTE Y LA APLICABLE A HISTORIAS CLÍNICAS].
+      </p>
+
+      <h2>3. Definiciones</h2>
+      <ul>
+        <li><strong>Titular:</strong> persona natural cuyos datos personales son objeto de tratamiento.</li>
+        <li><strong>Dato personal:</strong> cualquier información vinculada o que pueda asociarse a una persona natural.</li>
+        <li><strong>Dato sensible:</strong> aquel que afecta la intimidad del titular o cuyo uso indebido puede generar discriminación, como los datos relativos a la salud.</li>
+        <li><strong>Autorización:</strong> consentimiento previo, expreso e informado del titular para el tratamiento de sus datos.</li>
+        <li><strong>Tratamiento:</strong> cualquier operación sobre datos personales, como recolección, almacenamiento, uso, circulación o supresión.</li>
+        <li><strong>Responsable / Encargado:</strong> quien decide sobre el tratamiento / quien lo realiza por cuenta del responsable.</li>
+      </ul>
+
+      <h2>4. Principios</h2>
+      <p>
+        Aplicamos los principios de legalidad, finalidad, libertad, veracidad o calidad, transparencia, acceso y circulación
+        restringida, seguridad y confidencialidad establecidos en la Ley 1581 de 2012.
+      </p>
+
+      <h2>5. Datos que tratamos y finalidades</h2>
+      <p>
+        Este sitio web no tiene formularios ni recoge datos de salud. El contacto se realiza por WhatsApp, por iniciativa del
+        titular. Los datos que nos compartas (nombre, número de teléfono y el contenido de tu mensaje) se usarán para:
+      </p>
+      <ul>
+        <li>Responder tus consultas y orientarte sobre nuestros servicios.</li>
+        <li>Coordinar y agendar la atención que solicites.</li>
+        <li>Prestar los servicios contratados y hacer seguimiento a tu proceso.</li>
+        <li>Cumplir obligaciones legales, contables y tributarias.</li>
+        <li>[OTRAS FINALIDADES, SI APLICAN; p. ej., encuestas de satisfacción, solo con autorización].</li>
+      </ul>
+      <p>
+        <strong>Datos sensibles (salud):</strong> solo se tratarán con tu autorización previa, expresa e informada, cuando
+        sean necesarios para prestar el servicio. No estás obligado a autorizar su tratamiento. La información clínica se
+        gestionará conforme a la normativa de historia clínica cuando aplique. Te pedimos no enviar resultados, historias
+        clínicas ni documentos médicos por WhatsApp hasta que te indiquemos el canal adecuado.
+      </p>
+      <p>
+        <strong>Niñas, niños y adolescentes:</strong> sus datos se tratarán respetando su interés superior y sus derechos
+        prevalentes, con autorización de su representante legal.
+      </p>
+
+      <h2>6. Derechos de los titulares</h2>
+      <ul>
+        <li>Conocer, actualizar y rectificar tus datos personales.</li>
+        <li>Solicitar prueba de la autorización otorgada.</li>
+        <li>Ser informado sobre el uso que se ha dado a tus datos.</li>
+        <li>Presentar quejas ante la Superintendencia de Industria y Comercio (SIC).</li>
+        <li>Revocar la autorización y/o solicitar la supresión de tus datos cuando no exista un deber legal o contractual de conservarlos.</li>
+        <li>Acceder de forma gratuita a tus datos personales.</li>
+      </ul>
+
+      <h2>7. Cómo ejercer tus derechos</h2>
+      <p>
+        Puedes enviar tu consulta o reclamo al correo {c.email} o por WhatsApp al {whatsapp.display}, indicando tu nombre,
+        documento de identidad, la descripción de tu solicitud y un dato de contacto. Área responsable: [ÁREA O PERSONA
+        RESPONSABLE].
+      </p>
+      <ul>
+        <li><strong>Consultas:</strong> se responderán en un máximo de diez (10) días hábiles, prorrogables por cinco (5) días hábiles más, informando los motivos.</li>
+        <li><strong>Reclamos:</strong> se responderán en un máximo de quince (15) días hábiles, prorrogables por ocho (8) días hábiles más, informando los motivos.</li>
+      </ul>
+
+      <h2>8. Transmisión y transferencia</h2>
+      <p>
+        Para comunicarnos contigo usamos WhatsApp, un servicio de un tercero con sus propias políticas de privacidad.
+        [RELACIONAR OTROS ENCARGADOS, p. ej., proveedores de software, contabilidad o almacenamiento en la nube, e indicar si
+        hay transferencia internacional].
+      </p>
+
+      <h2>9. Seguridad de la información</h2>
+      <p>
+        Adoptamos medidas técnicas, humanas y administrativas razonables para proteger tus datos contra pérdida, consulta,
+        uso o acceso no autorizado. [DESCRIBIR MEDIDAS].
+      </p>
+
+      <h2>10. Analítica del sitio web</h2>
+      <p>
+        {site.analytics.provider === 'none'
+          ? 'Actualmente este sitio no utiliza herramientas de analítica ni cookies de seguimiento.'
+          : 'Este sitio usa una herramienta de analítica para conocer, de forma agregada, cómo se utiliza. [DESCRIBIR HERRAMIENTA, COOKIES Y MECANISMO DE CONSENTIMIENTO].'}
+      </p>
+
+      <h2>11. Vigencia</h2>
+      <p>
+        Esta política rige a partir del {c.policyDate}. Las bases de datos se conservarán durante el tiempo necesario para
+        cumplir sus finalidades y las obligaciones legales. Cualquier cambio sustancial se comunicará oportunamente.
+      </p>
+      <p><a href="/" class="font-semibold text-primary-ink underline underline-offset-4">← Volver al inicio</a></p>
+    </article>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .policy :global(h2) { margin-top: 2.5rem; font-size: 1.35rem; font-weight: 800; color: var(--c-deep); }
+  .policy :global(h2 + p), .policy :global(h2 + ul) { margin-top: 0.75rem; }
+  .policy :global(p) { margin-top: 0.85rem; color: var(--c-muted); }
+  .policy :global(ul) { margin-top: 0.85rem; padding-left: 1.25rem; list-style: disc; color: var(--c-muted); }
+  .policy :global(li) { margin-top: 0.4rem; }
+  .policy :global(li::marker) { color: var(--c-accent); }
+  .policy :global(strong) { color: var(--c-deep); }
+</style>

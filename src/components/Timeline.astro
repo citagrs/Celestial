@@ -1,0 +1,90 @@
+---
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const { steps } = site;
+---
+<section id="como-te-acompanamos" class="section" aria-labelledby="steps-title">
+  <div class="container-x">
+    <SectionHeading id="steps-title" eyebrow={steps.eyebrow} title={steps.title} subtitle={steps.subtitle} />
+
+    <ol class="timeline mt-14" data-timeline>
+      <span class="tl-track" aria-hidden="true"><span class="tl-fill" data-timeline-fill></span></span>
+      {steps.items.map((s, i) => (
+        <li class="tl-step" data-step>
+          <span class="tl-dot" aria-hidden="true"><Icon name={s.icon} size={24} /></span>
+          <div class="tl-card card" data-reveal>
+            <p class="text-sm font-bold text-accent-ink">Paso {i + 1}</p>
+            <h3 class="mt-1 text-xl font-extrabold text-deep">{s.title}</h3>
+            <p class="mt-2 text-muted">{s.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    --dot: 3.25rem;
+    position: relative;
+    display: grid;
+    gap: 1.75rem;
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+  .tl-track {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--dot) / 2 - 2px);
+    width: 4px;
+    border-radius: 4px;
+    background: rgb(var(--c-primary-rgb) / 0.16);
+    overflow: hidden;
+  }
+  .tl-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--c-primary), var(--c-accent));
+    transform-origin: top;
+    transform: scaleY(1);
+  }
+  .timeline:global(.is-enhanced) .tl-fill { transform: scaleY(0); }
+  .tl-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--dot) 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .tl-dot {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: var(--dot);
+    height: var(--dot);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--c-primary-ink);
+    box-shadow: 0 0 0 4px #fff, inset 0 0 0 2px rgb(var(--c-primary-rgb) / 0.35);
+    transition: background-color 0.4s, color 0.4s, transform 0.5s cubic-bezier(.3,1.6,.5,1);
+  }
+  .timeline:not(:global(.is-enhanced)) .tl-dot,
+  .tl-step:global(.is-active) .tl-dot {
+    background: var(--c-primary-ink);
+    color: #fff;
+  }
+  .tl-step:global(.is-active) .tl-dot { transform: scale(1.08); }
+  .tl-card { padding: 1.25rem 1.4rem; }
+
+  @media (min-width: 768px) {
+    .tl-track { left: calc(50% - 2px); }
+    .tl-step { grid-template-columns: 1fr var(--dot) 1fr; gap: 2rem; }
+    .tl-dot { grid-column: 2; grid-row: 1; }
+    .tl-step:nth-child(even) .tl-card { grid-column: 1; grid-row: 1; text-align: right; }
+    .tl-step:nth-child(odd) .tl-card { grid-column: 3; grid-row: 1; }
+  }
+</style>

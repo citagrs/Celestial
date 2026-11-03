@@ -1,0 +1,25 @@
+---
+import { waLink } from '../lib/whatsapp';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+interface Props {
+  message?: string;
+  /** Identificador del origen del clic para analítica (ej. "hero", "servicio-terapia"). */
+  source: string;
+  label: string;
+  variant?: 'primary' | 'ghost' | 'light';
+  class?: string;
+}
+const { message, source, label, variant = 'primary', class: className = '' } = Astro.props;
+---
+<a
+  href={waLink(message)}
+  target="_blank"
+  rel="noopener"
+  data-wa={source}
+  class:list={['btn', `btn-${variant}`, className]}
+>
+  <WhatsAppIcon />
+  <span>{label}</span>
+  <span class="sr-only"> (se abre WhatsApp en una pestaña nueva)</span>
+</a>

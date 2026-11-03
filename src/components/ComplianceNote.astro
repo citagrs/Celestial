@@ -1,0 +1,12 @@
+---
+import { site } from '../config/site';
+
+/** Nota de habilitación: depende del flag `legal.habilitacionREPS` en site.ts. */
+interface Props { class?: string; tone?: 'light' | 'dark' }
+const { class: className = '', tone = 'light' } = Astro.props;
+const { habilitacionREPS, repsCode, pendingHabilitationNote } = site.legal;
+const text = habilitacionREPS
+  ? `Prestador de servicios de salud inscrito en el REPS${repsCode ? ` con código ${repsCode}` : ''}.`
+  : pendingHabilitationNote;
+---
+<p class:list={['text-sm', tone === 'dark' ? 'text-white/75' : 'text-muted', className]}>{text}</p>

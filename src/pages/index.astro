@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import HeartbeatHero from '../components/HeartbeatHero.astro';
+import NeedSelector from '../components/NeedSelector.astro';
+import Services from '../components/Services.astro';
+import EmergencyNotice from '../components/EmergencyNotice.astro';
+import AudienceGrid from '../components/AudienceGrid.astro';
+import StatsCounter from '../components/StatsCounter.astro';
+import Timeline from '../components/Timeline.astro';
+import ValuesGrid from '../components/ValuesGrid.astro';
+import FounderCard from '../components/FounderCard.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import FinalCta from '../components/FinalCta.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+---
+<Base>
+  <Header />
+  <main id="contenido">
+    <HeartbeatHero />
+    <NeedSelector />
+    <Services />
+    <EmergencyNotice />
+    <div class="h-16 md:h-24" aria-hidden="true"></div>
+    <AudienceGrid />
+    <StatsCounter />
+    <Timeline />
+    <ValuesGrid />
+    <FounderCard />
+    <Testimonials />
+    <FaqAccordion />
+    <FinalCta />
+  </main>
+  <Footer />
+  <WhatsAppFloat />
+</Base>

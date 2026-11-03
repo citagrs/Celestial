@@ -1,0 +1,60 @@
+---
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const { values } = site;
+---
+<section id="valores" class="section values" aria-labelledby="values-title" data-animate>
+  <div class="container-x">
+    <SectionHeading id="values-title" eyebrow={values.eyebrow} title={values.title} subtitle={values.subtitle} />
+    <ul class="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-3 lg:gap-x-8">
+      {values.items.map((v, i) => (
+        <li class="value" data-reveal style={`--i:${i % 3}; --d:${i * -0.6}s`}>
+          <span class="value-icon" aria-hidden="true"><Icon name={v.icon} size={34} strokeWidth={1.6} /></span>
+          <h3 class="mt-4 text-lg font-extrabold text-deep sm:text-xl">{v.title}</h3>
+          <p class="mt-1.5 text-[0.95rem] text-muted">{v.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .value { text-align: center; }
+  .value-icon {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 4.75rem;
+    height: 4.75rem;
+    color: var(--c-primary-ink);
+    background: radial-gradient(circle at 30% 30%, #fff, var(--c-primary-tint));
+    border-radius: 42% 58% 55% 45% / 50% 45% 55% 50%;
+    box-shadow: 0 14px 30px -18px rgb(var(--c-primary-rgb) / 0.8);
+    transition: transform 0.5s cubic-bezier(.3,1.6,.5,1);
+  }
+  .value-icon::after {
+    content: '';
+    position: absolute;
+    top: 0.2rem;
+    right: 0.3rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--c-accent);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  }
+  .value:hover .value-icon { transform: scale(1.1) rotate(-6deg); }
+  @media (prefers-reduced-motion: no-preference) {
+    .value-icon { animation: value-float 5s ease-in-out infinite; animation-delay: var(--d); }
+    .value-icon::after { animation: value-twinkle 2.6s ease-in-out infinite; animation-delay: var(--d); }
+  }
+  @keyframes value-float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-6px) rotate(3deg); }
+  }
+  @keyframes value-twinkle {
+    0%, 100% { opacity: 1; transform: scale(1) rotate(0); }
+    50% { opacity: 0.2; transform: scale(0.4) rotate(90deg); }
+  }
+</style>

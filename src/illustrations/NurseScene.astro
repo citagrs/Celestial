@@ -1,0 +1,85 @@
+---
+/** Enfermería: enfermera tomando signos vitales a un adulto mayor en casa. */
+import './illustrations.css';
+interface Props { label: string; class?: string; style?: string }
+const { label, class: className = '', style } = Astro.props;
+---
+<svg class:list={['ill', 'ill-nurse', className]} style={style} viewBox="0 0 320 240" width="320" height="240" role="img" aria-label={label}>
+  <circle cx="160" cy="116" r="98" fill="var(--ill-soft)" />
+  <rect x="30" y="34" width="58" height="62" rx="12" fill="#fff" opacity=".9" />
+  <circle class="twinkle fb" cx="73" cy="52" r="7" fill="var(--ill-accent)" opacity=".75" />
+  <path d="M59 34v62M30 65h58" stroke="var(--ill-soft)" stroke-width="3" />
+  <ellipse cx="160" cy="214" rx="134" ry="12" fill="var(--ill-primary)" opacity=".12" />
+
+  <!-- Sillón -->
+  <rect x="52" y="94" width="92" height="98" rx="24" fill="var(--ill-primary)" opacity=".28" />
+  <rect x="46" y="152" width="112" height="34" rx="14" fill="var(--ill-primary)" opacity=".42" />
+  <rect x="40" y="128" width="24" height="58" rx="12" fill="var(--ill-primary)" opacity=".55" />
+  <rect x="140" y="128" width="26" height="58" rx="12" fill="var(--ill-primary)" opacity=".55" />
+  <path d="M56 186v18M150 186v18" stroke="var(--ill-deep)" stroke-width="5" stroke-linecap="round" />
+
+  <!-- Adulto mayor -->
+  <rect x="96" y="150" width="56" height="16" rx="8" fill="var(--ill-deep)" />
+  <path d="M128 162v40M144 162v40" stroke="var(--ill-deep)" stroke-width="13" stroke-linecap="round" />
+  <ellipse cx="132" cy="206" rx="9" ry="4" fill="var(--ill-deep)" />
+  <ellipse cx="148" cy="206" rx="9" ry="4" fill="var(--ill-deep)" />
+  <g class="breathe-elder vb">
+    <path d="M92 116q-3 24 16 34" stroke="var(--ill-accent)" stroke-width="10" stroke-linecap="round" fill="none" />
+    <rect x="84" y="102" width="40" height="58" rx="16" fill="var(--ill-accent)" />
+    <path d="M104 106v50" stroke="#fff" stroke-opacity=".5" stroke-width="1.6" />
+    <circle cx="108" cy="122" r="1.8" fill="#fff" /><circle cx="108" cy="134" r="1.8" fill="#fff" />
+    <rect x="100" y="90" width="8" height="14" rx="3" fill="var(--ill-skin)" />
+    <circle cx="104" cy="84" r="14" fill="var(--ill-skin)" />
+    <path d="M89 84a15 15 0 0 1 30-1q-3-11-15-12-12 1-15 13z" fill="var(--ill-gray-hair)" />
+    <path d="M90 82q-4 6 0 12M118 82q4 6 0 12" stroke="var(--ill-gray-hair)" stroke-width="4" stroke-linecap="round" fill="none" />
+    <g fill="none" stroke="var(--ill-deep)" stroke-width="1.4"><circle cx="99" cy="86" r="4" /><circle cx="110" cy="86" r="4" /><path d="M103 86h3" /></g>
+    <g class="blink fb"><circle cx="99" cy="86" r="1.3" fill="var(--ill-deep)" /><circle cx="110" cy="86" r="1.3" fill="var(--ill-deep)" /></g>
+    <path d="M100 93q4 3 8 0" stroke="var(--ill-deep)" stroke-width="1.6" stroke-linecap="round" fill="none" />
+  </g>
+  <!-- Brazo con brazalete de tensión -->
+  <path d="M118 116q18 16 42 16" stroke="var(--ill-accent)" stroke-width="10" stroke-linecap="round" fill="none" />
+  <circle cx="163" cy="132" r="5.5" fill="var(--ill-skin)" />
+  <rect x="128" y="118" width="16" height="16" rx="4" fill="var(--ill-primary)" transform="rotate(35 136 126)" />
+  <path d="M138 132q14 30 60 8" stroke="var(--ill-deep)" stroke-width="1.6" fill="none" />
+
+  <!-- Enfermera -->
+  <path d="M208 156l-2 48M224 156l3 48" stroke="var(--ill-deep)" stroke-width="12" stroke-linecap="round" />
+  <ellipse cx="204" cy="207" rx="9" ry="4" fill="var(--ill-deep)" />
+  <ellipse cx="230" cy="207" rx="9" ry="4" fill="var(--ill-deep)" />
+  <g class="breathe fb">
+    <rect x="196" y="96" width="40" height="66" rx="16" fill="var(--ill-primary)" />
+    <path d="M208 98l8 10 8-10" stroke="#fff" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+    <path d="M206 101q-2 22 10 26 12-4 10-26" stroke="var(--ill-deep)" stroke-width="2" fill="none" />
+    <circle cx="216" cy="128" r="3" fill="var(--ill-deep)" />
+  </g>
+  <path d="M200 110q-18 16-34 22" stroke="var(--ill-skin-2)" stroke-width="8" stroke-linecap="round" fill="none" />
+  <path d="M232 110q14 14 8 30" stroke="var(--ill-skin-2)" stroke-width="8" stroke-linecap="round" fill="none" />
+  <rect x="226" y="130" width="34" height="26" rx="6" fill="#fff" stroke="var(--ill-deep)" stroke-width="2" />
+  <path d="M230 146h5l2-4 3 8 2-4h4" stroke="var(--ill-primary)" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  <path class="beat fb" d="M253 145.5c-2.6-1.6-4-3.1-4-4.7a2 2 0 0 1 4-.9 2 2 0 0 1 4 .9c0 1.6-1.4 3.1-4 4.7z" fill="var(--ill-accent)" />
+  <rect x="212" y="84" width="8" height="14" rx="3" fill="var(--ill-skin-2)" />
+  <circle cx="230" cy="68" r="6.5" fill="var(--ill-hair)" />
+  <circle cx="216" cy="76" r="13" fill="var(--ill-skin-2)" />
+  <path d="M203 74a13 13 0 0 1 26 0q-4-9-13-9-9 0-13 9z" fill="var(--ill-hair)" />
+  <g class="blink fb"><circle cx="210" cy="78" r="1.6" fill="var(--ill-deep)" /><circle cx="218" cy="78" r="1.6" fill="var(--ill-deep)" /></g>
+  <path d="M211 84q3 2.4 6 0" stroke="var(--ill-deep)" stroke-width="1.6" stroke-linecap="round" fill="none" />
+
+  <!-- Planta -->
+  <g class="sway vb plant">
+    <path d="M290 184c-8-14-6-26 0-36 6 10 8 22 0 36z" fill="var(--ill-primary)" />
+    <path d="M290 184c-12-5-18-14-18-24 9 3 16 11 18 24z" fill="var(--ill-deep)" opacity=".8" />
+    <path d="M290 184c10-6 18-14 20-25-9 2-16 11-20 25z" fill="var(--ill-primary)" opacity=".75" />
+  </g>
+  <path d="M279 184h22l-3 22h-16z" fill="var(--ill-accent)" />
+
+  <path class="float fb" d="M186 52c-5-3.2-8-6.2-8-9.4a4 4 0 0 1 8-1.8 4 4 0 0 1 8 1.8c0 3.2-3 6.2-8 9.4z" fill="var(--ill-accent)" />
+  <path class="twinkle fb" d="M150 34l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="var(--ill-accent)" />
+</svg>
+
+<style>
+  .plant { transform-origin: 290px 184px; }
+  .breathe-elder { transform-origin: 104px 160px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .breathe-elder { animation: ill-breathe 4.8s ease-in-out infinite; }
+  }
+</style>

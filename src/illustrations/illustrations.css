@@ -1,0 +1,60 @@
+/*
+ * Estilos compartidos de las ilustraciones.
+ * Colores recoloreables: --ill-primary, --ill-deep, --ill-accent, --ill-soft (por defecto, la marca),
+ * y tonos de piel/cabello --ill-skin, --ill-skin-2, --ill-hair, --ill-hair-2.
+ */
+.ill {
+  --ill-primary: var(--c-primary);
+  --ill-deep: var(--c-deep);
+  --ill-accent: var(--c-accent);
+  --ill-soft: var(--c-soft);
+  --ill-tint: var(--c-primary-tint);
+  --ill-skin: #e9b991;
+  --ill-skin-2: #b97a53;
+  --ill-hair: #3b2a24;
+  --ill-hair-2: #5b3a29;
+  --ill-gray-hair: #e3e9eb;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.ill .fb { transform-box: fill-box; transform-origin: center; }
+.ill .vb { transform-box: view-box; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ill .blink { animation: ill-blink 5.5s infinite; }
+  .ill .breathe { animation: ill-breathe 4.2s ease-in-out infinite; }
+  .ill .sway { animation: ill-sway 4.8s ease-in-out infinite alternate; }
+  .ill .beat { animation: ill-beat 0.833s ease-out infinite; }
+  .ill .twinkle { animation: ill-twinkle 3.2s ease-in-out infinite; }
+  .ill .twinkle:nth-of-type(2n) { animation-delay: -1.4s; }
+  .ill .float { animation: ill-float 4s ease-in-out infinite; }
+}
+
+@keyframes ill-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@keyframes ill-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.012, 1.03); }
+}
+@keyframes ill-sway {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(4deg); }
+}
+@keyframes ill-beat {
+  0%, 46%, 100% { transform: scale(1); }
+  12% { transform: scale(1.18); }
+  24% { transform: scale(0.98); }
+  32% { transform: scale(1.1); }
+}
+@keyframes ill-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0); }
+  50% { opacity: 0.3; transform: scale(0.5) rotate(45deg); }
+}
+@keyframes ill-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}

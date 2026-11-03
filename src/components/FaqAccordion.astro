@@ -1,0 +1,87 @@
+---
+import { site } from '../config/site';
+import SectionHeading from './SectionHeading.astro';
+
+const { faq } = site;
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.items.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<section id="preguntas" class="section bg-soft" aria-labelledby="faq-title">
+  <div class="container-x max-w-3xl">
+    <SectionHeading id="faq-title" eyebrow={faq.eyebrow} title={faq.title} />
+    <div class="mt-10 space-y-3">
+      {faq.items.map((f, i) => (
+        <details class="faq" data-reveal style={`--i:${i % 4}`} name="faq">
+          <summary>
+            <span>{f.q}</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-body"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqLd)} />
+</section>
+
+<style>
+  .faq {
+    border-radius: 1.25rem;
+    background: #fff;
+    box-shadow: 0 12px 30px -26px rgb(var(--c-deep-rgb) / 0.6);
+    transition: box-shadow 0.3s;
+  }
+  .faq[open] { box-shadow: 0 0 0 2px rgb(var(--c-primary-rgb) / 0.35), 0 16px 34px -26px rgb(var(--c-deep-rgb) / 0.6); }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: 1.075rem;
+    font-weight: 700;
+    color: var(--c-deep);
+  }
+  summary::-webkit-details-marker { display: none; }
+  .faq-toggle {
+    position: relative;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--c-primary-tint);
+    transition: transform 0.4s cubic-bezier(.3,1.4,.5,1), background-color 0.3s;
+  }
+  .faq-toggle::before,
+  .faq-toggle::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.8rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--c-primary-ink);
+    translate: -50% -50%;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  .faq-toggle::after { transform: rotate(90deg); }
+  .faq[open] .faq-toggle { transform: rotate(180deg); background: var(--c-primary-ink); }
+  .faq[open] .faq-toggle::before { background: #fff; }
+  .faq[open] .faq-toggle::after { transform: rotate(0); background: #fff; }
+  .faq-body { padding: 0 1.3rem 1.25rem; color: var(--c-muted); }
+  .faq[open] .faq-body { animation: faq-in 0.4s cubic-bezier(.2,.8,.2,1); }
+  @keyframes faq-in {
+    from { opacity: 0; transform: translateY(-8px); }
+  }
+</style>

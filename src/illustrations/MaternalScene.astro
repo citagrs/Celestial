@@ -1,0 +1,81 @@
+---
+/** Materno perinatal: madre con su bebé en brazos, en un ambiente de calma. */
+import './illustrations.css';
+interface Props { label: string; class?: string; style?: string }
+const { label, class: className = '', style } = Astro.props;
+---
+<svg class:list={['ill', 'ill-maternal', className]} style={style} viewBox="0 0 320 240" width="320" height="240" role="img" aria-label={label}>
+  <circle cx="160" cy="116" r="98" fill="var(--ill-soft)" />
+  <path d="M262 40a22 22 0 1 0 20 32 18 18 0 1 1-20-32z" fill="var(--ill-accent)" />
+  <path class="twinkle fb" d="M236 30l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="var(--ill-accent)" />
+  <path class="twinkle fb" d="M292 96l1.3 3.2 3.2 1.3-3.2 1.3-1.3 3.2-1.3-3.2-3.2-1.3 3.2-1.3z" fill="var(--ill-accent)" />
+  <path class="twinkle fb" d="M84 40l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="var(--ill-accent)" />
+  <rect x="34" y="34" width="56" height="64" rx="12" fill="#fff" opacity=".9" />
+  <path d="M62 34v64M34 66h56" stroke="var(--ill-soft)" stroke-width="3" />
+  <path d="M30 30h18q-4 34 6 74-14-6-24-30z" fill="var(--ill-primary)" opacity=".3" />
+  <ellipse cx="160" cy="214" rx="134" ry="12" fill="var(--ill-primary)" opacity=".12" />
+
+  <g class="rock vb">
+    <!-- Mecedora -->
+    <rect x="128" y="76" width="84" height="98" rx="30" fill="var(--ill-deep)" opacity=".16" />
+    <path d="M136 176l-6 26M206 176l6 26" stroke="var(--ill-accent)" stroke-width="5" stroke-linecap="round" />
+    <path d="M110 200q64 16 128 0" stroke="var(--ill-accent)" stroke-width="5" stroke-linecap="round" fill="none" />
+
+    <!-- Madre -->
+    <rect x="128" y="150" width="90" height="22" rx="11" fill="var(--ill-deep)" />
+    <path d="M206 164v34" stroke="var(--ill-deep)" stroke-width="15" stroke-linecap="round" />
+    <ellipse cx="212" cy="202" rx="10" ry="4" fill="var(--ill-deep)" />
+    <path d="M160 64q16-14 30 4 6 26 2 56-8-12-10-28-12 6-24 2-4-18 2-34z" fill="var(--ill-hair-2)" />
+    <g class="breathe fb">
+      <rect x="146" y="94" width="48" height="66" rx="22" fill="var(--ill-primary)" />
+    </g>
+    <rect x="166" y="84" width="9" height="14" rx="3" fill="var(--ill-skin-2)" />
+    <g class="head vb">
+      <circle cx="171" cy="74" r="15" fill="var(--ill-skin-2)" />
+      <path d="M156 74a15 15 0 0 1 30-3q-9-12-21-8-8 3-9 11z" fill="var(--ill-hair-2)" />
+      <path d="M162 77q3 2 6 0M172 77q3 2 6 0M166 84q4 3 8 0" stroke="var(--ill-deep)" stroke-width="1.6" stroke-linecap="round" fill="none" />
+    </g>
+
+    <!-- Bebé -->
+    <g class="baby fb">
+      <ellipse cx="160" cy="124" rx="31" ry="17" fill="#fff" />
+      <path d="M140 116q22 6 50 0" stroke="var(--ill-accent)" stroke-opacity=".5" stroke-width="2" fill="none" />
+      <circle cx="137" cy="117" r="11" fill="var(--ill-skin)" />
+      <path d="M126 115a11 11 0 0 1 21-4q-9-6-19 0z" fill="var(--ill-accent)" />
+      <path d="M133 119q2 1.4 4 0" stroke="var(--ill-deep)" stroke-width="1.3" stroke-linecap="round" fill="none" />
+    </g>
+    <path d="M150 104q-24 16-10 32 20 8 44-2" stroke="var(--ill-skin-2)" stroke-width="9" stroke-linecap="round" fill="none" />
+    <path d="M190 104q8 20-6 30" stroke="var(--ill-skin-2)" stroke-width="9" stroke-linecap="round" fill="none" />
+  </g>
+
+  <!-- Planta -->
+  <g class="sway vb plant">
+    <path d="M58 186c-10-16-8-30 0-42 8 12 10 26 0 42z" fill="var(--ill-primary)" />
+    <path d="M58 186c-14-6-20-16-20-28 10 4 18 13 20 28z" fill="var(--ill-deep)" opacity=".8" />
+    <path d="M58 186c12-7 20-16 22-28-10 2-18 13-22 28z" fill="var(--ill-primary)" opacity=".75" />
+  </g>
+  <path d="M46 186h24l-3 22H49z" fill="var(--ill-accent)" />
+
+  <g class="float fb">
+    <path class="beat fb" d="M150 58c-5.5-3.5-8.6-6.8-8.6-10.2a4.3 4.3 0 0 1 8.6-1.9 4.3 4.3 0 0 1 8.6 1.9c0 3.4-3.1 6.7-8.6 10.2z" fill="var(--ill-accent)" />
+  </g>
+</svg>
+
+<style>
+  .rock { transform-origin: 174px 204px; }
+  .head { transform-origin: 171px 90px; }
+  .plant { transform-origin: 58px 186px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .rock { animation: rock 5s ease-in-out infinite alternate; }
+    .head { animation: nod 5s ease-in-out infinite alternate; }
+    .baby { animation: ill-breathe 3.2s ease-in-out infinite; }
+  }
+  @keyframes rock {
+    from { transform: rotate(-1.6deg); }
+    to { transform: rotate(1.6deg); }
+  }
+  @keyframes nod {
+    from { transform: rotate(-4deg); }
+    to { transform: rotate(-9deg); }
+  }
+</style>

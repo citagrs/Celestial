@@ -1,0 +1,96 @@
+---
+import '@fontsource/nunito/latin-700.css';
+import '@fontsource/nunito/latin-800.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-600.css';
+import nunito800 from '@fontsource/nunito/files/nunito-latin-800-normal.woff2?url';
+import '../styles/global.css';
+import { site } from '../config/site';
+import { themeCss } from '../lib/theme';
+import { waLink } from '../lib/whatsapp';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title, description = site.brand.description, noindex = false } = Astro.props;
+
+const pageTitle = title ? `${title} | ${site.brand.name}` : `${site.brand.fullName} | ${site.brand.slogan}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL('/og.png', site.url).href;
+
+// schema.org: solo se incluyen los datos que existen. Completa los TODO en site.ts.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: site.brand.fullName,
+  slogan: site.brand.slogan,
+  description: site.brand.description,
+  url: site.url,
+  image: ogImage,
+  logo: new URL('/favicon.svg', site.url).href,
+  telephone: site.whatsapp.display.replace(/\s/g, ''),
+  ...(site.contact.email && { email: site.contact.email }),
+  ...(site.contact.address && {
+    address: { '@type': 'PostalAddress', streetAddress: site.contact.address, addressCountry: 'CO' },
+  }),
+  areaServed: site.coverage.inPerson.map((name) => ({ '@type': 'City', name })),
+  founder: { '@type': 'Person', name: site.founder.name },
+  knowsLanguage: 'es',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    telephone: site.whatsapp.display.replace(/\s/g, ''),
+    url: waLink(),
+    availableLanguage: 'Spanish',
+  },
+  makesOffer: site.services.items.map((s) => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name: s.title, description: s.intro },
+  })),
+};
+---
+<!doctype html>
+<html
+  lang={site.lang}
+  data-analytics={site.analytics.provider}
+  data-analytics-id={site.analytics.id || undefined}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content={site.colors.primary} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href={nunito800} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:site_name" content={site.brand.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.brand.name}: ${site.brand.slogan}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style is:inline set:html={themeCss(site.colors)} />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a href="#contenido" class="sr-only-focusable fixed left-4 top-4 z-50 rounded-full bg-deep px-4 py-2 text-white">
+      Saltar al contenido
+    </a>
+    <slot />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

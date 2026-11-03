@@ -1,0 +1,37 @@
+---
+import { site } from '../config/site';
+import SectionHeading from './SectionHeading.astro';
+
+/**
+ * Los testimonios con `pending: true` solo se ven en desarrollo (`npm run dev`).
+ * En producción se omiten; si no hay testimonios reales, la sección no se publica.
+ */
+const { testimonials } = site;
+const items = testimonials.items.filter((t) => !t.pending || import.meta.env.DEV);
+---
+{items.length > 0 && (
+  <section id="testimonios" class="section" aria-labelledby="testimonials-title">
+    <div class="container-x">
+      <SectionHeading id="testimonials-title" eyebrow={testimonials.eyebrow} title={testimonials.title} subtitle={testimonials.subtitle} />
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {items.map((t, i) => (
+          <figure class:list={['card testimonial', { pending: t.pending }]} data-reveal style={`--i:${i}`}>
+            <svg class="text-accent" width="36" height="28" viewBox="0 0 36 28" fill="currentColor" aria-hidden="true">
+              <path d="M0 28V16C0 7 5 1.5 14 0l1.5 4C10 5.6 7.6 8.6 7.3 13H14v15zm20 0V16c0-9 5-14.5 14-16l1.5 4C30 5.6 27.6 8.6 27.3 13H34v15z" />
+            </svg>
+            <blockquote class="mt-4 text-[1.05rem] text-deep">{t.quote}</blockquote>
+            <figcaption class="mt-5 text-sm">
+              <span class="block font-bold text-deep">{t.name}</span>
+              <span class="text-muted">{t.context}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .testimonial { padding: 1.75rem; }
+  .pending { outline: 2px dashed var(--c-accent); outline-offset: -8px; }
+</style>

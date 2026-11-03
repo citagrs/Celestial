@@ -1,0 +1,107 @@
+---
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+
+/**
+ * Selector "¿Qué necesitas hoy?". Funciona sin JavaScript:
+ * radios nativos (teclado accesible) + :has() para mostrar el mensaje elegido.
+ */
+const { needs } = site;
+
+// Regla generada desde la configuración: muestra el panel de la opción elegida.
+const panelCss =
+  needs.items.map((n) => `.need-selector:has([value="${n.id}"]:checked) [data-need="${n.id}"]`).join(',') +
+  '{display:block;animation:need-panel-in .5s cubic-bezier(.2,.8,.2,1)}' +
+  '@keyframes need-panel-in{from{opacity:0;transform:translateY(12px)}}';
+---
+<section id="que-necesitas" class="section bg-soft" aria-labelledby="needs-title">
+  <div class="container-x">
+    <SectionHeading id="needs-title" eyebrow={needs.eyebrow} title={needs.title} subtitle={needs.subtitle} />
+
+    <fieldset class="need-selector mx-auto mt-10 max-w-4xl" data-reveal>
+      <legend class="sr-only">{needs.title}</legend>
+      <div class="grid gap-3 sm:grid-cols-3">
+        {needs.items.map((n) => (
+          <label class="need-option">
+            <input type="radio" name="need" value={n.id} class="sr-only" />
+            <span class="need-icon"><Icon name={n.icon} size={30} /></span>
+            <span class="font-display text-lg font-bold leading-snug">{n.label}</span>
+            <span class="need-check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+            </span>
+          </label>
+        ))}
+      </div>
+
+      <div class="need-panels mt-5" aria-live="polite">
+        <p class="need-hint text-center text-sm text-muted">Toca una opción para continuar.</p>
+        {needs.items.map((n) => (
+          <div class="need-panel card" data-need={n.id}>
+            <p class="text-[1.0625rem] leading-relaxed text-deep">{n.empathy}</p>
+            <WhatsAppButton class="mt-5 w-full sm:w-auto" source={`selector-${n.id}`} label={n.ctaLabel} message={n.waMessage} />
+          </div>
+        ))}
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<style>
+  .need-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.1rem 1.2rem;
+    border-radius: 1.25rem;
+    background: #fff;
+    color: var(--c-deep);
+    cursor: pointer;
+    box-shadow: 0 0 0 2px transparent, 0 12px 30px -22px rgb(var(--c-deep-rgb) / 0.5);
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s;
+  }
+  @media (min-width: 640px) {
+    .need-option { flex-direction: column; text-align: center; padding: 1.75rem 1.25rem; }
+  }
+  .need-option:hover { transform: translateY(-3px); }
+  .need-option:has(:focus-visible) { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+  .need-option:has(:checked) {
+    box-shadow: 0 0 0 2px var(--c-primary), 0 18px 36px -20px rgb(var(--c-primary-rgb) / 0.6);
+  }
+  .need-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: var(--c-primary-tint);
+    color: var(--c-primary-ink);
+    transition: transform 0.4s cubic-bezier(.3,1.6,.5,1), background-color 0.3s, color 0.3s;
+  }
+  .need-option:hover .need-icon { transform: scale(1.08) rotate(-6deg); }
+  .need-option:has(:checked) .need-icon { background: var(--c-primary-ink); color: #fff; }
+  .need-check {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: var(--c-accent);
+    color: #fff;
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.25s, transform 0.35s cubic-bezier(.3,1.6,.5,1);
+  }
+  .need-option:has(:checked) .need-check { opacity: 1; transform: scale(1); }
+
+  .need-panel { display: none; padding: 1.5rem; border-left: 4px solid var(--c-accent); }
+  @media (min-width: 640px) { .need-panel { padding: 2rem 2.25rem; } }
+  .need-selector:has(:checked) .need-hint { display: none; }
+</style>
+<style is:inline set:html={panelCss}></style>

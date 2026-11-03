@@ -1,0 +1,106 @@
+---
+import type { Service } from '../config/types';
+import Illustration from '../illustrations/Illustration.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+
+interface Props {
+  service: Service;
+  index?: number;
+}
+const { service: s, index = 0 } = Astro.props;
+const visible = s.includes.slice(0, s.visibleItems ?? s.includes.length);
+const more = s.includes.slice(visible.length);
+---
+<article class="service-wrap" data-reveal style={`--i:${index}`} aria-labelledby={`srv-${s.id}`}>
+  <div class="service-card card" data-tilt data-animate>
+    <div class="service-art">
+      <Illustration id={s.illustration} label={s.illustrationAlt} />
+    </div>
+    <div class="flex flex-1 flex-col p-6 sm:p-7">
+      <p class="text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-accent-ink">{s.kicker}</p>
+      <h3 id={`srv-${s.id}`} class="mt-2 text-[1.45rem] font-extrabold text-deep">{s.title}</h3>
+      <p class="mt-3 text-muted">{s.intro}</p>
+
+      <ul class="mt-5 space-y-2.5 text-[0.95rem]">
+        {visible.map((item) => (
+          <li class="check-item">{item}</li>
+        ))}
+      </ul>
+      {more.length > 0 && (
+        <details class="more mt-2.5">
+          <summary class="cursor-pointer text-[0.95rem] font-semibold text-primary-ink">
+            Ver todo lo que incluye ({more.length} más)
+          </summary>
+          <ul class="mt-2.5 space-y-2.5 text-[0.95rem]">
+            {more.map((item) => <li class="check-item">{item}</li>)}
+          </ul>
+        </details>
+      )}
+
+      {s.note && (
+        <p class="note mt-5 rounded-2xl bg-soft p-3.5 text-[0.85rem] leading-relaxed text-muted">
+          <strong class="font-semibold text-deep">Importante:</strong> {s.note}
+        </p>
+      )}
+      <div class="mt-auto pt-6">
+        <WhatsAppButton class="w-full" source={`servicio-${s.id}`} label={s.ctaLabel} message={s.waMessage} />
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .service-wrap { perspective: 1000px; display: flex; }
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s;
+    will-change: transform;
+  }
+  @media (hover: hover) {
+    .service-card:hover {
+      --lift: -8px;
+      box-shadow: 0 1px 0 rgb(var(--c-deep-rgb) / 0.04), 0 34px 60px -30px rgb(var(--c-deep-rgb) / 0.45);
+    }
+  }
+  .service-art {
+    padding: 1.25rem 1.25rem 0;
+    background: linear-gradient(180deg, var(--c-primary-tint), #fff);
+  }
+  .check-item {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--c-deep);
+  }
+  .check-item::before,
+  .check-item::after {
+    content: '';
+    position: absolute;
+  }
+  .check-item::before {
+    left: 0;
+    top: 0.3em;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--c-primary-tint);
+  }
+  .check-item::after {
+    left: 0.4rem;
+    top: calc(0.3em + 0.22rem);
+    width: 0.32rem;
+    height: 0.55rem;
+    border: solid var(--c-primary-ink);
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+  }
+  .more summary { list-style: none; }
+  .more summary::-webkit-details-marker { display: none; }
+  .more summary::after { content: ' +'; }
+  .more[open] summary::after { content: ' –'; }
+  .more[open] ul { animation: more-in 0.35s ease; }
+  @keyframes more-in { from { opacity: 0; transform: translateY(-6px); } }
+</style>

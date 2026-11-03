@@ -1,0 +1,70 @@
+---
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const { audience } = site;
+---
+<section id="para-quien" class="section bg-soft" aria-labelledby="audience-title" data-animate>
+  <div class="container-x">
+    <SectionHeading id="audience-title" eyebrow={audience.eyebrow} title={audience.title} subtitle={audience.subtitle} />
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {audience.items.map((a, i) => (
+        <li class="aud-item" data-reveal style={`--i:${i % 3}; --d:${i * -0.7}s`}>
+          <span class="aud-icon" aria-hidden="true">
+            <span class="aud-ring"></span>
+            <Icon name={a.icon} size={30} />
+          </span>
+          <div>
+            <h3 class="font-display text-lg font-bold text-deep">{a.title}</h3>
+            <p class="mt-1 text-[0.95rem] text-muted">{a.text}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .aud-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 1.5rem;
+    background: #fff;
+    box-shadow: 0 16px 40px -32px rgb(var(--c-deep-rgb) / 0.5);
+  }
+  .aud-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1.1rem;
+    background: var(--c-primary-tint);
+    color: var(--c-primary-ink);
+  }
+  .aud-icon :global(svg) { position: relative; }
+  .aud-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid var(--c-accent);
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .aud-icon :global(svg) { animation: aud-bob 3.6s ease-in-out infinite; animation-delay: var(--d); }
+    .aud-ring { animation: aud-ring 3.6s ease-out infinite; animation-delay: var(--d); }
+  }
+  @keyframes aud-bob {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-3px) rotate(-4deg); }
+  }
+  @keyframes aud-ring {
+    0%, 60% { opacity: 0; transform: scale(1); }
+    65% { opacity: 0.7; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.35); }
+  }
+</style>

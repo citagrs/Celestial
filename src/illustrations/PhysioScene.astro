@@ -1,0 +1,78 @@
+---
+/** Terapia física: persona estirándose con la guía de una fisioterapeuta. */
+import './illustrations.css';
+interface Props { label: string; class?: string; style?: string }
+const { label, class: className = '', style } = Astro.props;
+---
+<svg class:list={['ill', 'ill-physio', className]} style={style} viewBox="0 0 320 240" width="320" height="240" role="img" aria-label={label}>
+  <circle cx="160" cy="116" r="98" fill="var(--ill-soft)" />
+  <rect x="210" y="34" width="58" height="66" rx="12" fill="#fff" opacity=".9" />
+  <path d="M239 34v66M210 67h58" stroke="var(--ill-soft)" stroke-width="3" />
+  <ellipse cx="160" cy="214" rx="134" ry="12" fill="var(--ill-primary)" opacity=".12" />
+  <rect x="58" y="204" width="146" height="9" rx="4.5" fill="var(--ill-primary)" opacity=".35" />
+
+  <!-- Paciente -->
+  <g stroke-linecap="round" fill="none">
+    <path d="M101 150l-4 54M116 150l6 54" stroke="var(--ill-deep)" stroke-width="12" />
+  </g>
+  <ellipse cx="95" cy="207" rx="9" ry="4" fill="var(--ill-deep)" />
+  <ellipse cx="125" cy="207" rx="9" ry="4" fill="var(--ill-deep)" />
+  <g class="stretch vb">
+    <path d="M121 108q10 20 5 38" stroke="var(--ill-skin)" stroke-width="8" stroke-linecap="round" fill="none" />
+    <rect x="91" y="96" width="34" height="60" rx="15" fill="var(--ill-primary)" />
+    <path d="M96 106q-10-24-2-52" stroke="var(--ill-skin)" stroke-width="8" stroke-linecap="round" fill="none" />
+    <path d="M97 110q-4-10-4-18" stroke="var(--ill-primary)" stroke-width="12" stroke-linecap="round" fill="none" />
+    <rect x="104" y="84" width="8" height="14" rx="3" fill="var(--ill-skin)" />
+    <path d="M120 66q11 4 9 20-7-5-10-12z" fill="var(--ill-hair)" />
+    <circle cx="108" cy="76" r="13" fill="var(--ill-skin)" />
+    <path d="M95 75a13 13 0 0 1 26-3q-6-7-14-7-8 0-12 10z" fill="var(--ill-hair)" />
+    <path d="M102 78q2 1.6 4 0M111 78q2 1.6 4 0M105 84q3 2.4 6 0" stroke="var(--ill-deep)" stroke-width="1.6" stroke-linecap="round" fill="none" />
+    <path class="twinkle fb" d="M82 40l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="var(--ill-accent)" />
+  </g>
+
+  <!-- Fisioterapeuta -->
+  <g stroke-linecap="round" fill="none">
+    <path d="M178 154l-3 52M192 154l4 52" stroke="var(--ill-deep)" stroke-width="12" />
+  </g>
+  <ellipse cx="173" cy="208" rx="9" ry="4" fill="var(--ill-deep)" />
+  <ellipse cx="199" cy="208" rx="9" ry="4" fill="var(--ill-deep)" />
+  <g class="breathe fb">
+    <path d="M202 108q10 18 4 34" stroke="var(--ill-skin-2)" stroke-width="8" stroke-linecap="round" fill="none" />
+    <rect x="167" y="94" width="38" height="66" rx="15" fill="#fff" stroke="var(--ill-primary)" stroke-width="2.5" />
+    <path d="M179 96l7 9 7-9" stroke="var(--ill-primary)" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+    <path class="beat fb" d="M196 114.5c-2.6-1.6-4-3.1-4-4.7a2 2 0 0 1 4-.9 2 2 0 0 1 4 .9c0 1.6-1.4 3.1-4 4.7z" fill="var(--ill-accent)" />
+    <rect x="198" y="132" width="18" height="24" rx="3" fill="var(--ill-accent)" opacity=".9" />
+    <path d="M202 140h10M202 145h10M202 150h6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" />
+  </g>
+  <path d="M171 108q-20 8-40 9" stroke="var(--ill-skin-2)" stroke-width="8" stroke-linecap="round" fill="none" />
+  <path d="M171 108q-6 3-11 4" stroke="#fff" stroke-width="11" stroke-linecap="round" fill="none" />
+  <rect x="182" y="82" width="8" height="14" rx="3" fill="var(--ill-skin-2)" />
+  <circle cx="198" cy="64" r="6" fill="var(--ill-hair-2)" />
+  <circle cx="186" cy="74" r="13" fill="var(--ill-skin-2)" />
+  <path d="M173 72a13 13 0 0 1 26 0q-4-9-13-9-9 0-13 9z" fill="var(--ill-hair-2)" />
+  <g class="blink fb"><circle cx="180" cy="76" r="1.6" fill="var(--ill-deep)" /><circle cx="188" cy="76" r="1.6" fill="var(--ill-deep)" /></g>
+  <path d="M181 82q3 2.4 6 0" stroke="var(--ill-deep)" stroke-width="1.6" stroke-linecap="round" fill="none" />
+
+  <!-- Planta -->
+  <g class="sway vb plant">
+    <path d="M276 184c-10-18-8-34 0-46 8 12 10 28 0 46z" fill="var(--ill-primary)" />
+    <path d="M276 184c-16-6-24-18-24-30 12 4 22 14 24 30z" fill="var(--ill-deep)" opacity=".8" />
+    <path d="M276 184c14-8 24-18 26-32-12 2-22 14-26 32z" fill="var(--ill-primary)" opacity=".75" />
+  </g>
+  <path d="M262 184h28l-4 26h-20z" fill="var(--ill-accent)" />
+
+  <path class="twinkle fb" d="M40 70l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="var(--ill-accent)" />
+  <path class="twinkle fb" d="M150 30l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="var(--ill-accent)" />
+</svg>
+
+<style>
+  .stretch { transform-origin: 108px 152px; }
+  .plant { transform-origin: 276px 184px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .stretch { animation: stretch 4.5s ease-in-out infinite alternate; }
+  }
+  @keyframes stretch {
+    from { transform: rotate(2deg); }
+    to { transform: rotate(-5deg); }
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+import { site } from '../config/site';
+import ProfessionalPortrait from '../illustrations/ProfessionalPortrait.astro';
+
+const { founder } = site;
+---
+<section id="fundadora" class="section bg-soft" aria-labelledby="founder-title">
+  <div class="container-x grid items-center gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
+    <div class="founder-photo" data-reveal="scale">
+      {founder.photo ? (
+        <img src={founder.photo} alt={`Fotografía de ${founder.name}`} width="480" height="560" loading="lazy" decoding="async" />
+      ) : (
+        <div class="placeholder" data-animate>
+          <ProfessionalPortrait label={founder.illustrationAlt} class="portrait" />
+        </div>
+      )}
+      <span class="photo-blob" aria-hidden="true"></span>
+    </div>
+    <div>
+      <p class="eyebrow" data-reveal>{founder.eyebrow}</p>
+      <h2 id="founder-title" class="h2 mt-3" data-reveal style="--i:1">{founder.name}</h2>
+      <p class="mt-1 font-semibold text-primary-ink" data-reveal style="--i:1">{founder.role}</p>
+      {founder.paragraphs.map((p, i) => <p class="lead mt-4" data-reveal style={`--i:${i + 2}`}>{p}</p>)}
+      <blockquote class="quote mt-7" data-reveal style="--i:4">
+        <p>“{founder.quote}”</p>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<style>
+  .founder-photo {
+    position: relative;
+    max-width: 15rem;
+    margin-inline: auto;
+    width: 100%;
+  }
+  @media (min-width: 768px) { .founder-photo { max-width: 22rem; } }
+  .founder-photo img,
+  .placeholder {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    aspect-ratio: 6 / 7;
+    object-fit: cover;
+    border-radius: 46% 54% 50% 50% / 40% 40% 60% 60%;
+  }
+  .placeholder {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--c-primary-tint) 0%, var(--c-primary) 100%);
+  }
+  .placeholder :global(.portrait) { width: 92%; margin-bottom: -2px; }
+  .photo-blob {
+    position: absolute;
+    inset: 8% -8% -6% 10%;
+    border-radius: 55% 45% 40% 60% / 50% 60% 40% 50%;
+    background: var(--c-accent-tint);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .photo-blob { animation: photo-blob 14s ease-in-out infinite alternate; }
+  }
+  @keyframes photo-blob {
+    from { transform: rotate(-6deg) scale(1); }
+    to { transform: rotate(8deg) scale(1.04); }
+  }
+  .quote {
+    position: relative;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--c-accent);
+    border-radius: 0 1.25rem 1.25rem 0;
+    background: #fff;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--c-deep);
+  }
+</style>
