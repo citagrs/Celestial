@@ -2,17 +2,18 @@
 import { site } from '../config/site';
 import { waLink } from '../lib/whatsapp';
 import Logo from './Logo.astro';
+import { withBase } from '../lib/url';
 import WhatsAppIcon from './WhatsAppIcon.astro';
 
 const links = [
-  { href: '/#servicios', label: 'Servicios' },
-  { href: '/#como-te-acompanamos', label: 'Cómo te acompañamos' },
-  { href: '/#preguntas', label: 'Preguntas' },
+  { href: withBase('/#servicios'), label: 'Servicios' },
+  { href: withBase('/#como-te-acompanamos'), label: 'Cómo te acompañamos' },
+  { href: withBase('/#preguntas'), label: 'Preguntas' },
 ];
 ---
 <header class="site-header">
   <div class="container-x flex h-16 items-center justify-between gap-4">
-    <a href="/#inicio" class="flex items-center gap-2.5" aria-label={`${site.brand.name}, ir al inicio`}>
+    <a href={withBase('/#inicio')} class="flex items-center gap-2.5" aria-label={`${site.brand.name}, ir al inicio`}>
       <Logo size={38} beat />
       <span class="leading-none">
         <span class="block font-display text-lg font-extrabold tracking-wide text-deep">{site.brand.name}</span>

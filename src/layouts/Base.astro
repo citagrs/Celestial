@@ -8,6 +8,7 @@ import '../styles/global.css';
 import { site } from '../config/site';
 import { themeCss } from '../lib/theme';
 import { waLink } from '../lib/whatsapp';
+import { absoluteUrl, withBase } from '../lib/url';
 
 interface Props {
   title?: string;
@@ -17,8 +18,9 @@ interface Props {
 const { title, description = site.brand.description, noindex = false } = Astro.props;
 
 const pageTitle = title ? `${title} | ${site.brand.name}` : `${site.brand.fullName} | ${site.brand.slogan}`;
-const canonical = new URL(Astro.url.pathname, site.url).href;
-const ogImage = new URL('/og.png', site.url).href;
+const siteUrl = Astro.site ?? site.url;
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = absoluteUrl('/og.png', siteUrl);
 
 // schema.org: solo se incluyen los datos que existen. Completa los TODO en site.ts.
 const jsonLd = {
@@ -27,9 +29,9 @@ const jsonLd = {
   name: site.brand.fullName,
   slogan: site.brand.slogan,
   description: site.brand.description,
-  url: site.url,
+  url: absoluteUrl('/', siteUrl),
   image: ogImage,
-  logo: new URL('/favicon.svg', site.url).href,
+  logo: absoluteUrl('/favicon.svg', siteUrl),
   telephone: site.whatsapp.display.replace(/\s/g, ''),
   ...(site.contact.email && { email: site.contact.email }),
   ...(site.contact.address && {
@@ -65,7 +67,7 @@ const jsonLd = {
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content={site.colors.primary} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="preload" href={nunito800} as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />

@@ -2,6 +2,7 @@
 import { site } from '../config/site';
 import { waLink } from '../lib/whatsapp';
 import Logo from './Logo.astro';
+import { withBase } from '../lib/url';
 import ComplianceNote from './ComplianceNote.astro';
 
 const { brand, whatsapp, contact, coverage, legal, services } = site;
@@ -40,11 +41,11 @@ const year = new Date().getFullYear();
     <div>
       <h2 class="text-base font-bold">Servicios</h2>
       <ul class="mt-4 space-y-2.5 text-sm text-white/85">
-        {services.items.map((s) => <li><a class="hover:text-white hover:underline" href="/#servicios">{s.title}</a></li>)}
+        {services.items.map((s) => <li><a class="hover:text-white hover:underline" href={withBase('/#servicios')}>{s.title}</a></li>)}
       </ul>
       <h2 class="mt-7 text-base font-bold">Legal</h2>
       <ul class="mt-4 space-y-2.5 text-sm text-white/85">
-        <li><a class="underline decoration-accent underline-offset-4 hover:text-white" href={legal.privacyPolicyPath}>Política de tratamiento de datos personales</a></li>
+        <li><a class="underline decoration-accent underline-offset-4 hover:text-white" href={withBase(legal.privacyPolicyPath)}>Política de tratamiento de datos personales</a></li>
       </ul>
     </div>
   </div>

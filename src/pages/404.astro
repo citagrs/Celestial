@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { withBase } from '../lib/url';
 ---
 <Base title="Página no encontrada" noindex>
   <main id="contenido" class="grid min-h-[100svh] place-items-center bg-soft px-4 text-center">
@@ -10,7 +11,7 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
       <h1 class="h2 mt-6">No encontramos esta página</h1>
       <p class="lead mx-auto mt-3 max-w-md">Pero seguimos aquí para acompañarte.</p>
       <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-        <a href="/" class="btn btn-ghost">Volver al inicio</a>
+        <a href={withBase('/')} class="btn btn-ghost">Volver al inicio</a>
         <WhatsAppButton source="404" label="Escríbenos por WhatsApp" />
       </div>
     </div>

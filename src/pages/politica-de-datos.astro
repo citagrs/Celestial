@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../config/site';
+import { withBase } from '../lib/url';
 
 /**
  * PLANTILLA de Política de Tratamiento de Datos Personales (Ley 1581 de 2012,
@@ -133,7 +134,7 @@ const c = legal.company;
         Esta política rige a partir del {c.policyDate}. Las bases de datos se conservarán durante el tiempo necesario para
         cumplir sus finalidades y las obligaciones legales. Cualquier cambio sustancial se comunicará oportunamente.
       </p>
-      <p><a href="/" class="font-semibold text-primary-ink underline underline-offset-4">← Volver al inicio</a></p>
+      <p><a href={withBase('/')} class="font-semibold text-primary-ink underline underline-offset-4">← Volver al inicio</a></p>
     </article>
   </main>
   <Footer />

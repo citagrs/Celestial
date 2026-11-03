@@ -3,8 +3,10 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { site } from './src/config/site.ts';
 
+// Para GitHub Pages el workflow define SITE_URL=https://<usuario>.github.io y BASE_PATH=/<repo>.
 export default defineConfig({
-  site: site.url,
+  site: process.env.SITE_URL || site.url,
+  base: process.env.BASE_PATH || '/',
   output: 'static',
   trailingSlash: 'ignore',
   build: {

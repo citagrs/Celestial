@@ -37,6 +37,34 @@ El sitio es 100 % estático (`dist/`). Ya incluye configuración para:
 
 Antes de publicar: cambia `url` en `site.ts` por el dominio real (afecta canonical, sitemap, robots y Open Graph).
 
+### GitHub Pages (gratis)
+
+El workflow `.github/workflows/deploy-pages.yml` publica el sitio en cada push a `main`, en
+`https://<usuario>.github.io/<repo>/` (aquí: **https://citagrs.github.io/Celestial/**).
+
+1. En GitHub: **Settings → Pages → Build and deployment → Source: "GitHub Actions"** (solo la primera vez).
+2. Haz push a `main` y revisa la pestaña **Actions**. Tarda unos 2 minutos.
+
+El workflow define `SITE_URL` y `BASE_PATH` (la subcarpeta `/Celestial`); todas las rutas internas usan
+`withBase()` de `src/lib/url.ts`, así el mismo código sirve en una subcarpeta o en un dominio propio.
+Para probar localmente la versión de Pages en Git Bash:
+
+```bash
+MSYS_NO_PATHCONV=1 SITE_URL=https://citagrs.github.io BASE_PATH=/Celestial npm run build
+```
+
+Con un dominio propio en Pages, quita `BASE_PATH` del workflow y pon el dominio en `SITE_URL`.
+
+### Código QR
+
+Cada build genera un QR con los colores y el logo de la marca, apuntando a la URL publicada:
+
+- `/qr.png` (1024 px, para WhatsApp, redes o documentos) y `/qr.svg` (vectorial, para imprimir en cualquier tamaño).
+- Copias listas en `docs/qr-celestial.png` y `docs/qr-celestial.svg`.
+
+Tiene corrección de errores alta (H), así que el logo central no impide leerlo. Al imprimirlo, déjale al menos 2 cm de
+lado y un margen blanco alrededor. Si cambia la URL, vuelve a generar el build y reemplaza las copias de `docs/`.
+
 ## Estructura
 
 ```
